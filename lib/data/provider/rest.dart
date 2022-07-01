@@ -9,14 +9,14 @@ const version = ConfigApi.VERSION;
 const option = ConfigApi.OPTION;
 
 class RestAPIClient {
-  final Dio httpClient;
+  var httpClient = Dio();
   Map<String, dynamic> _defaultBody = {
     'app_key': appKey,
     'ver': version,
     'op': option,
   };
 
-  RestAPIClient({required this.httpClient});
+  RestAPIClient();
 
   post(Map<String, dynamic> postData) async {
     try {

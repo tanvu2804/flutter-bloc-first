@@ -10,7 +10,7 @@ class NewsLoadingState extends NewsState {
 }
 
 class NewsLoadedState extends NewsState {
-  final NewsModel news;
+  final List<NewsModel> news;
 
   NewsLoadedState(this.news);
 
