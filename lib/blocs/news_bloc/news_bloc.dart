@@ -13,15 +13,11 @@ class NewsBloc extends Bloc<NewsEvent, NewsState> {
       try {
         await _apiServiceRepository.listNews().then((value) {
           if (value != null) {
-
             if (value['status'] == "ok") {
-              value['articles'].forEach((value){
+              value['articles'].forEach((value) {
                 NewsModel newsModel = NewsModel.fromJson(value);
                 listModel.add(newsModel);
               });
-
-              print("listModel");
-              print(listModel[1].author);
               emit(NewsLoadedState(listModel));
             }
           }
