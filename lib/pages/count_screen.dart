@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_bloc_first/blocs/count_bloc/count.dart';
-import 'package:flutter_bloc_first/routes/app_routes.dart';
+import 'package:flutter_bloc_first/navigation/routes/app_routes.dart';
 
 class CountScreen extends StatefulWidget {
   const CountScreen({Key? key}) : super(key: key);

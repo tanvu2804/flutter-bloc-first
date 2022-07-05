@@ -3,8 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_bloc_first/blocs/news_bloc/news.dart';
 import 'package:flutter_bloc_first/data/repository/api_service_repository.dart';
 import 'package:flutter_bloc_first/models/index.dart';
-import 'package:flutter_bloc_first/routes/app_routes.dart';
-import 'package:intl/intl.dart';
+import 'package:flutter_bloc_first/navigation/routes/app_routes.dart';
+ import 'package:intl/intl.dart';
 
 class NewsScreen extends StatefulWidget {
   const NewsScreen({Key? key}) : super(key: key);
@@ -20,7 +20,7 @@ class _NewsScreenState extends State<NewsScreen> {
       create: (context) => ApiServiceRepository(),
       child: Scaffold(
           appBar: AppBar(
-            title: const Text("News"),
+            title: const Text("Tin tức"),
             centerTitle: true,
           ),
           body: BlocProvider(
