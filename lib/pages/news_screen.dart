@@ -4,7 +4,7 @@ import 'package:flutter_bloc_first/blocs/news_bloc/news.dart';
 import 'package:flutter_bloc_first/data/repository/api_service_repository.dart';
 import 'package:flutter_bloc_first/models/index.dart';
 import 'package:flutter_bloc_first/navigation/routes/app_routes.dart';
- import 'package:intl/intl.dart';
+import 'package:intl/intl.dart';
 
 class NewsScreen extends StatefulWidget {
   const NewsScreen({Key? key}) : super(key: key);
@@ -83,6 +83,7 @@ class _NewsScreenState extends State<NewsScreen> {
                     'https://dci.edu.vn/wp-content/themes/consultix/images/no-image-found-360x250.png');
               },
             ),
+            SizedBox(width: 5),
             Expanded(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
