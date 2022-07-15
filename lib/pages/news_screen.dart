@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_bloc_first/blocs/news_bloc/news.dart';
 import 'package:flutter_bloc_first/data/repository/api_service_repository.dart';
 import 'package:flutter_bloc_first/models/index.dart';
+import 'package:flutter_bloc_first/models/news_model.dart';
 import 'package:flutter_bloc_first/navigation/routes/app_routes.dart';
 import 'package:intl/intl.dart';
 

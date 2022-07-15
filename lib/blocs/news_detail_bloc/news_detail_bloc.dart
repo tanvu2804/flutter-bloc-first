@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_bloc_first/blocs/news_detail_bloc/news_detail.dart';
 import 'package:flutter_bloc_first/models/index.dart';

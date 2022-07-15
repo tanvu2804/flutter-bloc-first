@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_bloc_first/blocs/news_detail_bloc/news_detail.dart';
 import 'package:flutter_bloc_first/models/index.dart';
+import 'package:flutter_bloc_first/models/news_model.dart';
 import 'package:flutter_bloc_first/navigation/routes/app_routes.dart';
 import 'package:flutter_bloc_first/pages/count_screen.dart';
 import 'package:flutter_bloc_first/pages/home_screen.dart';
 import 'package:flutter_bloc_first/pages/nav_bar.dart';
 import 'package:flutter_bloc_first/pages/news_detail_screen.dart';
 import 'package:flutter_bloc_first/pages/news_screen.dart';
+import 'package:flutter_bloc_first/pages/youtube_detail_screen.dart';
 import 'package:flutter_bloc_first/pages/youtube_screen.dart';
 
 class AppRouter {
@@ -32,6 +34,14 @@ class AppRouter {
         );
       case AppRoutes.youtube:
         return MaterialPageRoute(builder: (_) => YoutubeScreen());
+      // case AppRoutes.youtube_detail:
+      //   return MaterialPageRoute(
+      //     builder: (_) => BlocProvider<NewsDetailBloc>(
+      //       create: (context) =>
+      //           NewsDetailBloc(newsModel)..add(LoadNewsDetailEvent()),
+      //       child: NewsDetailScreen(),
+      //     ),
+      //   );
       default:
         return null;
     }

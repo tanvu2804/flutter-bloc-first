@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc_first/models/index.dart';
+import 'package:flutter_bloc_first/models/news_model.dart';
 
 abstract class NewsState extends Equatable {}
 
