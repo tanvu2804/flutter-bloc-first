@@ -17,4 +17,16 @@ class ApiServiceRepository implements IApiDeviceRepository {
       return Future.error(exception);
     }
   }
+
+  @override
+  Future<Map<String, dynamic>?> listVideo() async {
+    try {
+      final response = await _restAPIClient.get("/video");
+      if (response != null) {
+        return response;
+      }
+    } catch (exception) {
+      return Future.error(exception);
+    }
+  }
 }

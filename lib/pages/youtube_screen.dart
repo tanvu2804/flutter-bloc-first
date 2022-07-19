@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_bloc_first/data.dart';
+import 'package:flutter_bloc_first/data/repository/api_service_repository.dart';
 import 'package:flutter_bloc_first/models/video_model.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:flutter_bloc_first/blocs/youtube_bloc/youtube.dart';
+import 'package:intl/intl.dart';
 
 class YoutubeScreen extends StatefulWidget {
   const YoutubeScreen({Key? key}) : super(key: key);
@@ -13,47 +17,72 @@ class YoutubeScreen extends StatefulWidget {
 class _YoutubeScreenState extends State<YoutubeScreen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        leading: Icon(FontAwesomeIcons.youtube, color: Colors.red, size: 30),
-        actions: [
-          Row(children: [
-            Icon(Icons.videocam_outlined, color: Colors.red, size: 25),
-            SizedBox(width: 10),
-            Icon(FontAwesomeIcons.bell, color: Colors.red, size: 20),
-            SizedBox(width: 10),
-            Icon(Icons.search, color: Colors.red, size: 25),
-            SizedBox(width: 10),
-            Container(
-                height: 40,
-                width: 40,
-                decoration: BoxDecoration(
-                  color: Colors.grey,
-                  borderRadius: BorderRadius.circular(100),
-                ),
-                child:
-                    Icon(FontAwesomeIcons.user, color: Colors.red, size: 20)),
-            SizedBox(width: 10),
-          ])
-        ],
-        backgroundColor: Colors.white,
-      ),
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
+    return RepositoryProvider(
+      create: (context) => ApiServiceRepository(),
+      child: Scaffold(
+        appBar: AppBar(
+          leading: Icon(FontAwesomeIcons.youtube, color: Colors.red, size: 30),
+          actions: [
+            Row(children: [
+              Icon(Icons.videocam_outlined, color: Colors.red, size: 25),
+              SizedBox(width: 10),
+              Icon(FontAwesomeIcons.bell, color: Colors.red, size: 20),
+              SizedBox(width: 10),
+              Icon(Icons.search, color: Colors.red, size: 25),
+              SizedBox(width: 10),
               Container(
-                child: ListView.builder(
-                  physics: NeverScrollableScrollPhysics(),
-                  shrinkWrap: true,
-                  itemCount: home_video.length,
-                  itemBuilder: (context, index) {
-                    VideoModel item = videoModelFromJson(home_video[index]);
-                    return itemYoutube(item);
-                  },
-                ),
-              ),
-            ],
+                  height: 40,
+                  width: 40,
+                  decoration: BoxDecoration(
+                    color: Colors.grey,
+                    borderRadius: BorderRadius.circular(100),
+                  ),
+                  child:
+                      Icon(FontAwesomeIcons.user, color: Colors.red, size: 20)),
+              SizedBox(width: 10),
+            ])
+          ],
+          backgroundColor: Colors.white,
+        ),
+        body: BlocProvider<YoutubeBloc>(
+          create: (context) =>
+              YoutubeBloc(RepositoryProvider.of<ApiServiceRepository>(context))
+                ..add(LoadYoutubeEvent()),
+          child: BlocBuilder<YoutubeBloc, YoutubeState>(
+            builder: (context, state) {
+              if (state is YoutubeLoadingState) {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+              if (state is YoutubeLoadedState) {
+                return SafeArea(
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        Container(
+                          child: ListView.builder(
+                            physics: NeverScrollableScrollPhysics(),
+                            shrinkWrap: true,
+                            itemCount: state.video.length,
+                            itemBuilder: (context, index) {
+                              VideoModel item = state.video[index];
+                              return itemYoutube(item);
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                );
+              }
+              if (state is YoutubeErrorState) {
+                return Center(
+                  child: Text(state.error.toString()),
+                );
+              }
+              return Container();
+            },
           ),
         ),
       ),
@@ -67,7 +96,7 @@ class _YoutubeScreenState extends State<YoutubeScreen> {
           child: Column(
         children: [
           Image(
-            image: AssetImage(item.thumnailImg),
+            image: NetworkImage(item.thumnailImg),
             height: 170,
             width: double.infinity,
             fit: BoxFit.cover,
@@ -101,7 +130,10 @@ class _YoutubeScreenState extends State<YoutubeScreen> {
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                        Text(item.dayAgo),
+                        Text(DateFormat('hh:mm dd-MM-yyyy')
+                            .format(DateTime.parse(
+                                item.dayAgo ?? DateTime.now().toString()))
+                            .toString()),
                       ],
                     ),
                   ),

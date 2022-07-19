@@ -4,8 +4,8 @@
 
 import 'dart:convert';
 
-VideoModel videoModelFromJson(str) =>
-    VideoModel.fromJson(str);
+VideoModel videoModelFromJson(String str) =>
+    VideoModel.fromJson(json.decode(str));
 
 String videoModelToJson(VideoModel data) => json.encode(data.toJson());
 
@@ -22,6 +22,7 @@ class VideoModel {
     this.likeCount,
     this.unlikeCount,
     this.videoUrl,
+    this.category,
   });
 
   int? id;
@@ -29,12 +30,13 @@ class VideoModel {
   String? profileImg;
   String? username;
   String? title;
-  String? viewCount;
+  int? viewCount;
   String? dayAgo;
-  String? subscriberCount;
-  String? likeCount;
-  String? unlikeCount;
+  int? subscriberCount;
+  int? likeCount;
+  int? unlikeCount;
   String? videoUrl;
+  int? category;
 
   VideoModel copyWith({
     int? id,
@@ -42,12 +44,13 @@ class VideoModel {
     String? profileImg,
     String? username,
     String? title,
-    String? viewCount,
+    int? viewCount,
     String? dayAgo,
-    String? subscriberCount,
-    String? likeCount,
-    String? unlikeCount,
+    int? subscriberCount,
+    int? likeCount,
+    int? unlikeCount,
     String? videoUrl,
+    int? category,
   }) =>
       VideoModel(
         id: id ?? this.id,
@@ -61,6 +64,7 @@ class VideoModel {
         likeCount: likeCount ?? this.likeCount,
         unlikeCount: unlikeCount ?? this.unlikeCount,
         videoUrl: videoUrl ?? this.videoUrl,
+        category: category ?? this.category,
       );
 
   factory VideoModel.fromJson(Map<String, dynamic> json) => VideoModel(
@@ -75,6 +79,7 @@ class VideoModel {
         likeCount: json["like_count"],
         unlikeCount: json["unlike_count"],
         videoUrl: json["video_url"],
+        category: json["category"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -89,5 +94,6 @@ class VideoModel {
         "like_count": likeCount,
         "unlike_count": unlikeCount,
         "video_url": videoUrl,
+        "category": category,
       };
 }
